@@ -1,0 +1,31 @@
+- When doing pip install, python literally makes tcp and http connection to pypi.org server.
+The packages there are where all types of modules and frameworks are,
+such as flask, django, pandas, etc.
+- .venv is ignored by git. When doing projects/making something, we create this first. Then, we install the
+packages after activating it in bash/prompt. This is so packages and other dependencies aren't installed
+globbaly and only for the project we're in. This helps so that when making future projects with later 
+versions of those packages and dependencies used in old project, old project doesn't fail or break due to 
+updating the global packages it's using.
+- Routes handle different URLs that app supports. Handlers for these app routes are python functions called
+"view functions", which are mapped to 1 or more route URLs. These handlers let flask know what to do when
+user/client requests a specific URL
+- in the init file, when importing the routes, I had to use . instead of app,
+because something with python environment variable on my end and because
+python confuses app directory with app flask instance. anyways, its best
+to use . since its dynamic, and . looks at current directory. can use this
+anywhere in python. or can use different names to avoid python directory
+errors
+- we need a top level file like projectRetainApp.py, because although 
+we already defined flask instance in __init__, init is supposed to be imported,
+has a clean look since later on we will be adding databases and config files
+at the top level, keeping app directory clean and only have source code,
+and to not mess with python's root directory system
+- need to do (venv) $ export FLASK_APP=projectRetainApp.py once every 
+terminal session. it helps flask find the flask app instance in the
+projectRetainApp module, which imports the app flask instance within it.
+there'll be more types of things than export FLASK_APP=..., so we make this 
+.flaskenv folder that will have these scripts run automatically everytime
+flask run is done. need the python-dotenv package, which for us is in .venv.
+not ignored by git, so other teammates in github can have the convenience of
+sharing running flask without manually typing these other scripts.
+- can change ports: (venv) $ flask run --port 5001
